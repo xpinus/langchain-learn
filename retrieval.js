@@ -41,7 +41,7 @@ const resultDocs = await retriever.invoke(
 	"how can langsmith help with testing?"
 );
 
-// console.log(resultDocs);
+console.log(resultDocs);
 
 // 问答+召回的内容
 
@@ -58,13 +58,8 @@ const questionAnsweringPrompt = ChatPromptTemplate.fromMessages([
 	new MessagesPlaceholder("messages"),
 ]);
 
-const documentChain = await createStuffDocumentsChain({
-	llm,
-	prompt: questionAnsweringPrompt,
-});
-
 console.log(
-	await documentChain.invoke({
+	await questionAnsweringPrompt.invoke({
 		messages: [
 			new HumanMessage("Can LangSmith help test my LLM applications?"),
 		],
@@ -72,11 +67,26 @@ console.log(
 	})
 );
 
-console.log(
-	await documentChain.invoke({
-		messages: [
-			new HumanMessage("Can LangSmith help test my LLM applications?"),
-		],
-		context: [],
-	})
-);
+// const documentChain = await createStuffDocumentsChain({
+// 	llm,
+// 	prompt: questionAnsweringPrompt,
+// });
+
+// console.log(
+// 	await documentChain.invoke({
+// 		messages: [
+// 			new HumanMessage("Can LangSmith help test my LLM applications?"),
+// 		],
+// 		context: resultDocs,
+// 	})
+// );
+
+// console.log(
+// 	await documentChain.invoke({
+// 		messages: [
+// 			new HumanMessage("Can LangSmith help test my LLM applications?"),
+// 		],
+// 		context: [],
+// 	})
+// );
+
