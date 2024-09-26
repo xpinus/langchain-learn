@@ -1,0 +1,19 @@
+function splitFunctionChain(chainString) {
+	const regex = /(\w+)\(([^)]*)\)/g;
+	const functionCalls = [];
+	let match;
+
+	while ((match = regex.exec(chainString)) !== null) {
+		const functionName = match[1];
+		const parameters = match[2];
+		functionCalls.push({ functionName, parameters });
+	}
+
+	return functionCalls;
+}
+
+const chainString =
+	"page.getByRole('button', { name: 'www.baidu.com' }).click()";
+const functionCalls = splitFunctionChain(chainString);
+
+console.log(functionCalls);
